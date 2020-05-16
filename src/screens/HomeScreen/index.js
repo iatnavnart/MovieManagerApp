@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
-import {SafeAreaView, FlatList} from 'react-native';
+import {SafeAreaView, FlatList, View, Platform} from 'react-native';
 import Axios from 'axios';
-import {actionFetchMovieCollection} from '../../redux/Store/Actions';
+import {fetchMovies} from '../../redux/Store/Actions';
 import {connect} from 'react-redux';
-import MovieItem from '../../components/MovieItem';
+import MovieItem from '../../components/MovieItem/index';
 
 export class HomeScreen extends Component {
   render() {
+    console.log(Platform.OS);
+    console.log(Platform.Version);
     // console.log('HomeScreen: ', this.props.movieCollections);
     return (
       <SafeAreaView>
-        <FlatList
-          data={this.props.movieCollections}
-          renderItem={({item}) => <MovieItem movieItem={item} />}
-          keyExtractor={(item, index) => `${item.maPhim + index}`}
-        />
+        <View style={{paddingHorizontal: 15, paddingVertical: 30}}>
+          <FlatList
+            data={this.props.movieCollections}
+            renderItem={({item}) => <MovieItem movieItem={item} />}
+            keyExtractor={(item, index) => `${item.maPhim + index}`}
+          />
+        </View>
       </SafeAreaView>
     );
   }
@@ -27,18 +31,7 @@ export class HomeScreen extends Component {
   // }
 
   componentDidMount() {
-    Axios({
-      url:
-        'http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01',
-      method: 'GET',
-    })
-      .then(response => {
-        console.log('Success');
-        this.props.dispatch(actionFetchMovieCollection(response.data));
-      })
-      .catch(error => {
-        console.log('failed');
-      });
+    this.props.dispatch(fetchMovies());
   }
 }
 const mapStateToProps = state => {

@@ -10,7 +10,9 @@ Redux have 3 main part
 # install navigation
   yarn add @react-navigation/native --save
 # Animation for navigation
-  yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view --save
+  yarn add react-native-reanimated react-native-gesture-handler 
+  react-native-screens react-native-safe-area-context 
+  @react-native-community/masked-view --save
 
 must be: 
   1. npm install --save react-native-vector-icons	
@@ -29,3 +31,6 @@ Styled-component
 # HOC
 
 disable header navigation of bottom tabs or manual custom header 
+
+dock middleware because middleware not destroy if user navigate to another page different with truyen thong, 
+se bi huy neu roi khoi trang cos goi request len server
