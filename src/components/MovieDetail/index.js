@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
-import {
-  actionGetMovieDetail,
-  fetchMoviesDetails,
-} from '../../redux/Store/Actions';
-import {connect} from 'react-redux';
-import Axios from 'axios';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
+import {connect} from 'react-redux';
+import {fetchMoviesDetails} from '../../redux/Store/Actions';
 
 export class MovieDetailScreen extends Component {
   render() {

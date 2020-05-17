@@ -1,4 +1,8 @@
-import {FETCH_MOVIE_COLLECTIONS, FETCH_MOVIE_DETAIL} from './Contants';
+import {
+  FETCH_MOVIE_COLLECTIONS,
+  FETCH_MOVIE_DETAIL,
+  SET_CREDENTIALS,
+} from './Contants';
 import Axios from 'axios';
 
 export const createAction = (type, payload) => ({
@@ -11,6 +15,10 @@ const actionFetchMovieCollection = payload =>
 
 const actionGetMovieDetail = payload =>
   createAction(FETCH_MOVIE_DETAIL, payload);
+
+const actionSetCredentials = payload => {
+  createAction(SET_CREDENTIALS, payload);
+};
 
 // async action
 export const fetchMovies = () => dispatch => {
@@ -41,4 +49,8 @@ export const fetchMoviesDetails = id => dispatch => {
     .catch(error => {
       console.log('failed');
     });
+};
+
+export const setCredentials = val => dispatch => {
+  dispatch(actionSetCredentials(val));
 };
