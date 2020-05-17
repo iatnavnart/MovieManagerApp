@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import {SafeAreaView, FlatList, View, Platform} from 'react-native';
-import Axios from 'axios';
-import {fetchMovies} from '../../redux/Store/Actions';
+import {FlatList, SafeAreaView, View} from 'react-native';
 import {connect} from 'react-redux';
 import MovieItem from '../../components/MovieItem/index';
+import {fetchMovies} from '../../redux/Store/Actions';
 
 export class HomeScreen extends Component {
   render() {
-    console.log(Platform.OS);
-    console.log(Platform.Version);
     // console.log('HomeScreen: ', this.props.movieCollections);
     return (
       <SafeAreaView>

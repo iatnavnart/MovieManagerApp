@@ -34,3 +34,12 @@ disable header navigation of bottom tabs or manual custom header
 
 dock middleware because middleware not destroy if user navigate to another page different with truyen thong, 
 se bi huy neu roi khoi trang cos goi request len server
+Platform: check device is android or ios, and check version of os
+Example: 
+    + console.log(Platform.OS);
+    + console.log(Platform.Version);
+
+1. Traditional
+2. React Hook
+3. React-native image picker
+4. Add movie
