@@ -1,17 +1,11 @@
+import {withNavigation} from '@react-navigation/compat';
 import Axios from 'axios';
 import React, {useState} from 'react';
-import {
-  AsyncStorage,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {AsyncStorage, Image, ImageBackground, Text, View} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import BackGround from '../../assets/background.jpg';
 import LogoSignIn from '../../assets/logo.png';
-import {withNavigation} from '@react-navigation/compat';
+import {styles} from './style';
 // export class SignInScreen extends Component {
 //   render() {
 //     return (
@@ -40,22 +34,22 @@ import {withNavigation} from '@react-navigation/compat';
 //   }
 // }
 const SignInScreen = () => {
-  const [state, setstate] = useState({
+  const [account, setAccount] = useState({
     taiKhoan: '',
     matKhau: '',
   });
   const handleChange = property => val => {
-    setstate({...state, [property]: val});
+    setAccount({...account, [property]: val});
   };
   const handleSubmit = props => {
-    console.log(state);
+    console.log(account);
     Axios({
       url: 'http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap',
       method: 'POST',
-      data: {...state},
+      data: account,
     })
       .then(res => {
-        console.log('sign-in success');
+        console.log(res.data);
         AsyncStorage.setItem('credentials', JSON.stringify(res.data));
         AsyncStorage.setItem(
           'accessToken',
@@ -92,7 +86,7 @@ const SignInScreen = () => {
             onChangeText={handleChange('matKhau')}
             style={styles.formControl}
           />
-          <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+          <TouchableOpacity style={styles.btn} onPress={() => handleSubmit}>
             <Text>SignIn</Text>
           </TouchableOpacity>
         </View>
@@ -100,38 +94,5 @@ const SignInScreen = () => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  content: {
-    paddingHorizontal: 20,
-  },
-  logo: {
-    width: 300,
-  },
-  btn: {
-    backgroundColor: 'red',
-    width: 80,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    left: '40%',
-    borderRadius: 5,
-  },
-  form: {},
-  formControl: {
-    borderColor: 'white',
-    borderWidth: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    fontSize: 20,
-    color: 'white',
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-});
 
 export default withNavigation(SignInScreen);

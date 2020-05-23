@@ -1,13 +1,20 @@
 import {SET_CREDENTIALS} from '../Actions/Contants';
-import {AsyncStorage} from 'react-native';
 
-const initialState = [];
+const initialState = {
+  data: null,
+  isLogin: null,
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CREDENTIALS:
-      state = action.payload;
-      return [...state];
+      if (action.payload) {
+        state.data = JSON.parse(action.payload);
+        state.isLogin = true;
+      } else {
+        state.isLogin = false;
+      }
+      return {...state};
     default:
       return state;
   }

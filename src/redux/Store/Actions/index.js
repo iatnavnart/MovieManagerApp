@@ -28,7 +28,7 @@ export const fetchMovies = () => dispatch => {
     method: 'GET',
   })
     .then(response => {
-      console.log('Success');
+      console.log(response.data);
       dispatch(actionFetchMovieCollection(response.data));
     })
     .catch(error => {
