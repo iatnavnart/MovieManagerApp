@@ -5,28 +5,30 @@ import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {stylesMovieItem} from './style';
+import Axios from 'axios';
+import {useSelector} from 'react-redux';
 const MovieItem = props => {
   const gotoDetail = () => {
     props.navigation.navigate('detail', {
       id: props.movieItem.maPhim,
     });
   };
-  // const credentials = useSelector(state => state.credentials.data);
-  // const deleteMovie = () => {
-  //   Axios({
-  //     url: `/api/QuanLyPhim/XoaPhim?MaPhim=${props.maPhim}`,
-  //     method: 'DELETE',
-  //     headers: {
-  //       Authorization: `Brearer ${credentials.accessToken}`,
-  //     },
-  //   })
-  //     .then(response => {
-  //       console.log(response);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+  const credentials = useSelector(state => state.credentials.data);
+  const deleteMovie = () => {
+    Axios({
+      url: `/api/QuanLyPhim/XoaPhim?MaPhim=${props.maPhim}`,
+      method: 'DELETE',
+      headers: {
+        Authorization: `Brearer ${credentials.accessToken}`,
+      },
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const {movieItem} = props;
   return (
     <View style={stylesMovieItem.container}>
@@ -52,11 +54,11 @@ const MovieItem = props => {
           title="Detail"
           onPress={gotoDetail}
         />
-        {/* <Button
+        <Button
           buttonStyle={stylesMovieItem.btnAndroid}
           title="Delete"
           onPress={deleteMovie}
-        /> */}
+        />
       </View>
 
       <LinearGradient

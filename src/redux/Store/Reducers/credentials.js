@@ -1,4 +1,4 @@
-import {SET_CREDENTIALS} from '../Actions/Contants';
+import {CONST_SET_CREDENTIALS} from '../../../utils';
 
 const initialState = {
   data: null,
@@ -7,7 +7,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_CREDENTIALS:
+    case CONST_SET_CREDENTIALS:
       if (action.payload) {
         state.data = JSON.parse(action.payload);
         state.isLogin = true;

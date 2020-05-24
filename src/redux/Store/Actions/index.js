@@ -1,9 +1,9 @@
+import RestControllerService from '../../../service';
 import {
-  FETCH_MOVIE_COLLECTIONS,
-  FETCH_MOVIE_DETAIL,
-  SET_CREDENTIALS,
-} from './Contants';
-import Axios from 'axios';
+  CONST_FETCH_MOVIE_COLLECTIONS,
+  CONST_FETCH_MOVIE_DETAIL,
+  CONST_SET_CREDENTIALS,
+} from '../../../utils';
 
 export const createAction = (type, payload) => ({
   type,
@@ -11,22 +11,19 @@ export const createAction = (type, payload) => ({
 });
 
 const actionFetchMovieCollection = payload =>
-  createAction(FETCH_MOVIE_COLLECTIONS, payload);
+  createAction(CONST_FETCH_MOVIE_COLLECTIONS, payload);
 
 const actionGetMovieDetail = payload =>
-  createAction(FETCH_MOVIE_DETAIL, payload);
+  createAction(CONST_FETCH_MOVIE_DETAIL, payload);
 
 const actionSetCredentials = payload => {
-  createAction(SET_CREDENTIALS, payload);
+  createAction(CONST_SET_CREDENTIALS, payload);
 };
 
 // async action
 export const fetchMovies = () => dispatch => {
-  Axios({
-    url:
-      'http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01',
-    method: 'GET',
-  })
+  const URL = process.env.REACT_APP_GET_MOVIES + '?maNhom=GP01';
+  RestControllerService.GET(URL)
     .then(response => {
       console.log(response.data);
       dispatch(actionFetchMovieCollection(response.data));
@@ -38,10 +35,8 @@ export const fetchMovies = () => dispatch => {
 
 // async action
 export const fetchMoviesDetails = id => dispatch => {
-  Axios({
-    url: `http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`,
-    method: 'GET',
-  })
+  const URL = process.env.REACT_APP_GET_MOVIE_INFO + `?MaPhim=${id}`;
+  RestControllerService.GET(URL)
     .then(response => {
       console.log('Success');
       dispatch(actionGetMovieDetail(response.data));

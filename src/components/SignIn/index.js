@@ -6,6 +6,7 @@ import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import BackGround from '../../assets/background.jpg';
 import LogoSignIn from '../../assets/logo.png';
 import {styles} from './style';
+import RestControllerService from '../../service';
 // export class SignInScreen extends Component {
 //   render() {
 //     return (
@@ -42,14 +43,9 @@ const SignInScreen = () => {
     setAccount({...account, [property]: val});
   };
   const handleSubmit = props => {
-    console.log(account);
-    Axios({
-      url: 'http://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap',
-      method: 'POST',
-      data: account,
-    })
+    const URL = process.env.REACT_APP_SIGN_IN;
+    RestControllerService.POST(URL, account)
       .then(res => {
-        console.log(res.data);
         AsyncStorage.setItem('credentials', JSON.stringify(res.data));
         AsyncStorage.setItem(
           'accessToken',
@@ -58,7 +54,7 @@ const SignInScreen = () => {
         props.navigation.replace('home');
       })
       .catch(err => {
-        console.log('Error');
+        console.log('Error', err);
       });
   };
 

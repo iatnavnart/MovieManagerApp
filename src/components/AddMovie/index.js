@@ -1,16 +1,50 @@
+import {useFormik} from 'formik';
 import React from 'react';
-import {
-  Button,
-  DatePickerAndroid,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Button, ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import ImagePicker from 'react-native-image-picker';
 import BackGround from '../../assets/background.jpg';
-
 const AddMovieScreen = () => {
+  const options = {
+    title: 'Select Avatar',
+    customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+  const pickImage = () => {
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = {uri: response.uri};
+        console.log(response);
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
+  };
+  const formik = useFormik({
+    maPhim: 0,
+    tenPhim: 'string',
+    biDanh: 'string',
+    trailer: 'string',
+    hinhAnh: 'string',
+    moTa: 'string',
+    ngayKhoiChieu: 'string',
+    danhGia: 0,
+  });
   return (
     <ImageBackground source={BackGround} style={styles.container}>
       <View style={styles.content}>
@@ -77,7 +111,9 @@ export const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
   },
-  imageContainer: {},
+  imageContainer: {
+    width: '100%',
+  },
   btn: {
     backgroundColor: 'red',
     width: 80,
@@ -87,8 +123,8 @@ export const styles = StyleSheet.create({
     left: '40%',
     borderRadius: 5,
   },
-  form:{
-    width: '100%'
+  form: {
+    width: '100%',
   },
   formControl: {
     borderColor: 'white',
@@ -99,6 +135,7 @@ export const styles = StyleSheet.create({
     color: 'white',
     borderRadius: 5,
     marginBottom: 10,
+    width: '100%',
   },
 });
 

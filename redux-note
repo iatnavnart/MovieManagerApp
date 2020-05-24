@@ -45,3 +45,7 @@ Example:
 4. Add movie
 
 useEffect: didmount, unmount, didupdate
+
+- formik, 
+- react-native image picker: picker movie image, ios : cd ios pod install
+- yup validation form with formik
