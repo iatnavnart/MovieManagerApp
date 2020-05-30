@@ -7,6 +7,8 @@ import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -49,7 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    // initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
   /**

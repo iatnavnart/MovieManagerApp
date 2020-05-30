@@ -2,18 +2,20 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import SignInScreen from '../components/SignIn';
-import MovieDetailScreen from '../components/MovieDetail';
-import AddMovieScreen from '../components/AddMovie';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import SigninScreen from '../screens/Signin';
+import MovieDetailScreen from '../screens/MovieDetail';
+import CreateMovieScreen from '../screens/CreateMovie';
+import HomeScreen from '../screens/Home';
+import ProfileScreen from '../screens/Profile';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {AsyncStorage} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCredentials} from '../redux/Store/Actions';
+import {createAction} from '../redux/actions';
+import {SET_CREDENTIALS} from '../redux/actions/type';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
 const BottomTabBar = () => {
   return (
     <Tab.Navigator
@@ -24,8 +26,8 @@ const BottomTabBar = () => {
         name="movies"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="movie" size={30} color={color} />
+          tabBarIcon: ({color}) => (
+            <Icon name="movie" size={20} color={color} />
           ),
         }}
       />
@@ -33,49 +35,55 @@ const BottomTabBar = () => {
         name="profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="face" size={30} color={color} />
+          tabBarIcon: ({color}) => (
+            <Icon name="person" size={20} color={color} />
           ),
         }}
       />
     </Tab.Navigator>
   );
 };
+
 const MovieAppContainer = () => {
   const dispatch = useDispatch();
 
-  const credentials = useSelector(state => state.credentials);
+  //lấy dữ liệu credentials từ store xuống để kiểm tra
+  const isLogin = useSelector((state) => state.credentials.isLogin);
 
+  //componentDidMount, componentDidUpdate , componentWillUnmount
   useEffect(() => {
-    AsyncStorage.getItem('accessToken').then(val => {
-      dispatch(setCredentials(JSON.parse(val)));
+    AsyncStorage.getItem('credentials').then((val) => {
+      //dispatch 1 action để sửa lại credentials trên
+      //store
+      dispatch(createAction(SET_CREDENTIALS, val));
     });
-  },[]);
+  }, [dispatch]);
+
+  if (isLogin === null) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!credentials && (
+        {!isLogin && (
           <Stack.Screen
             name="signin"
-            component={SignInScreen}
-            options={{title: 'SignIn Screen'}}
+            component={SigninScreen}
+            options={{headerShown: false}}
           />
         )}
+
         <Stack.Screen
           name="home"
           component={BottomTabBar}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="detail" component={MovieDetailScreen} />
         <Stack.Screen
-          name="detail"
-          component={MovieDetailScreen}
-          options={{title: 'Movie Detail'}}
-        />
-        <Stack.Screen
-          name="addmovie"
-          component={AddMovieScreen}
-          options={{title: 'Add Movie'}}
+          name="createMovie"
+          component={CreateMovieScreen}
+          options={{headerTitle: 'Create New Movie'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

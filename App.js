@@ -9,12 +9,16 @@
 import React from 'react';
 
 import MovieAppContainer from './src/navigation';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
-import RootReducer from './src/redux/Store/Reducers/RootReducer';
+import RootReducer from './src/redux/reducers';
 import thunk from 'redux-thunk';
 
-const store = createStore(RootReducer, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  RootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
+);
 
 const App = () => {
   return (

@@ -45,3 +45,6 @@ Example:
 4. Add movie
 
 useEffect: didmount, unmount, didupdate
+
+lodash
+moment.js
