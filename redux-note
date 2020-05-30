@@ -32,6 +32,8 @@ Styled-component
 
 disable header navigation of bottom tabs or manual custom header 
 
+https://medium.com/commutatus/multi-environment-variable-setup-for-react-native-application-70fde4de657f
+
 dock middleware because middleware not destroy if user navigate to another page different with truyen thong, 
 se bi huy neu roi khoi trang cos goi request len server
 Platform: check device is android or ios, and check version of os
@@ -49,3 +51,10 @@ useEffect: didmount, unmount, didupdate
 - formik, 
 - react-native image picker: picker movie image, ios : cd ios pod install
 - yup validation form with formik
+
+Step 3: Install gulp essentials in project
+npm i gulp
+npm i gulp-clean
+npm i gulp-rename
+
+https://medium.com/commutatus/multi-environment-variable-setup-for-react-native-application-70fde4de657f

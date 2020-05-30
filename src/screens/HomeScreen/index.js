@@ -5,6 +5,7 @@ import {Icon} from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import MovieItem from '../../components/MovieItem/index';
 import {fetchMovies} from '../../redux/Store/Actions';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export class HomeScreen extends Component {
   gotoCreateMovie = () => {
@@ -16,7 +17,7 @@ export class HomeScreen extends Component {
       <SafeAreaView>
         <View style={{paddingHorizontal: 15, paddingVertical: 30}}>
           <View style={styles.addBtnContainer}>
-            <Button
+            <TouchableOpacity
               style={styles.addBtn}
               icon={() => <Icon name="add" size={30} color="white" />}
             />

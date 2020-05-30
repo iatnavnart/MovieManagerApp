@@ -1,10 +1,13 @@
-import RestControllerService from '../../../service';
+import {GET} from '../../../service';
 import {
   CONST_FETCH_MOVIE_COLLECTIONS,
   CONST_FETCH_MOVIE_DETAIL,
   CONST_SET_CREDENTIALS,
 } from '../../../utils';
-
+import {
+  REACT_NATIVE_GET_MOVIE_INFO,
+  REACT_NATIVE_GET_MOVIES,
+} from 'react-native-dotenv';
 export const createAction = (type, payload) => ({
   type,
   payload,
@@ -22,8 +25,9 @@ const actionSetCredentials = payload => {
 
 // async action
 export const fetchMovies = () => dispatch => {
-  const URL = process.env.REACT_APP_GET_MOVIES + '?maNhom=GP01';
-  RestControllerService.GET(URL)
+  const URL = REACT_NATIVE_GET_MOVIES + '?maNhom=GP01';
+  console.log(URL);
+  GET(URL)
     .then(response => {
       console.log(response.data);
       dispatch(actionFetchMovieCollection(response.data));
@@ -35,8 +39,8 @@ export const fetchMovies = () => dispatch => {
 
 // async action
 export const fetchMoviesDetails = id => dispatch => {
-  const URL = process.env.REACT_APP_GET_MOVIE_INFO + `?MaPhim=${id}`;
-  RestControllerService.GET(URL)
+  const URL = REACT_NATIVE_GET_MOVIE_INFO + `?MaPhim=${id}`;
+  GET(URL)
     .then(response => {
       console.log('Success');
       dispatch(actionGetMovieDetail(response.data));

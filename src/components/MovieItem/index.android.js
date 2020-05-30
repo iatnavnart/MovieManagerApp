@@ -5,8 +5,10 @@ import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {stylesMovieItem} from './style';
-import Axios from 'axios';
 import {useSelector} from 'react-redux';
+import {DELETE} from '../../service';
+import {REACT_NATIVE_DELETE_MOVIE} from 'react-native-dotenv';
+
 const MovieItem = props => {
   const gotoDetail = () => {
     props.navigation.navigate('detail', {
@@ -15,13 +17,11 @@ const MovieItem = props => {
   };
   const credentials = useSelector(state => state.credentials.data);
   const deleteMovie = () => {
-    Axios({
-      url: `/api/QuanLyPhim/XoaPhim?MaPhim=${props.maPhim}`,
-      method: 'DELETE',
-      headers: {
-        Authorization: `Brearer ${credentials.accessToken}`,
-      },
-    })
+    const URL = REACT_NATIVE_DELETE_MOVIE + `?MaPhim=${props.maPhim}`;
+    const option = {
+      Authorization: `Brearer ${credentials.accessToken}`,
+    };
+    DELETE(URL, option)
       .then(response => {
         console.log(response);
       })

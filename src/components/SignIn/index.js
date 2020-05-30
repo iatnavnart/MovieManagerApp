@@ -1,12 +1,12 @@
 import {withNavigation} from '@react-navigation/compat';
-import Axios from 'axios';
 import React, {useState} from 'react';
 import {AsyncStorage, Image, ImageBackground, Text, View} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import BackGround from '../../assets/background.jpg';
 import LogoSignIn from '../../assets/logo.png';
+import {POST} from '../../service';
 import {styles} from './style';
-import RestControllerService from '../../service';
+import {REACT_NATIVE_SIGN_IN} from 'react-native-dotenv';
 // export class SignInScreen extends Component {
 //   render() {
 //     return (
@@ -43,8 +43,8 @@ const SignInScreen = () => {
     setAccount({...account, [property]: val});
   };
   const handleSubmit = props => {
-    const URL = process.env.REACT_APP_SIGN_IN;
-    RestControllerService.POST(URL, account)
+    const URL = REACT_NATIVE_SIGN_IN;
+    POST(URL, account)
       .then(res => {
         AsyncStorage.setItem('credentials', JSON.stringify(res.data));
         AsyncStorage.setItem(
