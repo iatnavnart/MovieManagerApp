@@ -20,6 +20,7 @@
     "error-ex": "git+https://github.com/Qix-/node-error-ex.git",
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
+    "moment": "^2.26.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-datepicker": "^1.7.2",

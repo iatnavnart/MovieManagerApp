@@ -19,6 +19,8 @@ import * as _ from 'lodash';
 import Axios from 'axios';
 import {useSelector} from 'react-redux';
 
+import moment from 'moment';
+
 const movieSchema = yup.object().shape({
   tenPhim: yup
     .string()
@@ -97,7 +99,7 @@ const CreateMovieScreen = props => {
       }
     });
   };
-  const accessToken = useSelector((state = state.credentials.data.accessToken));
+  const accessToken = useSelector(state => state.credentials.data);
 
   const handleSubmit = () => {
     console.log(formik.errors);
@@ -108,10 +110,14 @@ const CreateMovieScreen = props => {
     }
     const body = {...formik.values};
     const releaseDate = new Date(body.ngayKhoiChieu);
-    body.ngayKhoiChieu = `${releaseDate.getDate()}-${releaseDate.getMonth()}-${releaseDate.getFullYear()}`;
+    body.ngayKhoiChieu = moment(body.ngayKhoiChieu).format('DD/MM/YYYY');
+    // `${releaseDate.getDate()}-${releaseDate.getMonth()}-${releaseDate.getFullYear()}`;
+    body.hinhAnh =
+      'https://cdn1.thr.com/sites/default/files/imagecache/landscape_928x523/2011/08/d015-03700r_a_l.jpg';
     Axios({
       method: 'POST',
       url: 'http://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhim',
+      data: body,
       headers: {
         Authorization: `Brear ${accessToken}`,
       },
